@@ -1,0 +1,28 @@
+{
+  "name": "pq-jwt-debugger",
+  "version": "1.0.0",
+  "description": "Browser-based PQ-JWT debugger — decode, sign, verify ML-DSA tokens",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@pq-jose/jose": "^0.0.1",
+    "@pq-jwt/core": "^1.0.6",
+    "@pq-jwt/hybrid": "^0.0.2",
+    "buffer": "^6.0.3",
+    "jose": "^6.0.11",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-node-polyfills": "^0.28.0"
+  }
+}
