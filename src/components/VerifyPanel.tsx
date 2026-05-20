@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FieldLabelRow from "./FieldLabelRow";
 import { verifyToken, peekToken } from "../lib/pq-crypto";
 import { formatJson, isHexKey, isLikelyJwt } from "../lib/jwt-utils";
 
@@ -92,7 +93,9 @@ export default function VerifyPanel({ token, publicKey }: Props) {
       </p>
 
       <div className="field">
-        <label htmlFor="verify-jwt">JWT</label>
+        <FieldLabelRow htmlFor="verify-jwt" copy={{ text: jwtInput, label: "JWT" }}>
+          JWT
+        </FieldLabelRow>
         <textarea
           id="verify-jwt"
           value={jwtInput}
@@ -103,7 +106,9 @@ export default function VerifyPanel({ token, publicKey }: Props) {
       </div>
 
       <div className="field">
-        <label htmlFor="verify-pubkey">Public key (hex)</label>
+        <FieldLabelRow htmlFor="verify-pubkey" copy={{ text: pubKeyInput, label: "public key" }}>
+          Public key (hex)
+        </FieldLabelRow>
         <textarea
           id="verify-pubkey"
           value={pubKeyInput}
@@ -146,7 +151,9 @@ export default function VerifyPanel({ token, publicKey }: Props) {
         <>
           <div className="status ok">Signature valid — claims verified.</div>
           <div className="field" style={{ marginTop: "1rem" }}>
-            <label>Verified payload</label>
+            <FieldLabelRow copy={{ text: payload, label: "verified payload" }}>
+              Verified payload
+            </FieldLabelRow>
             <pre className="json-block payload">{payload}</pre>
           </div>
         </>

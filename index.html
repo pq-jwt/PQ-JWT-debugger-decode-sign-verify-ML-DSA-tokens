@@ -1,6 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
+    <script>
+      (function () {
+        function prefDark() {
+          try {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches;
+          } catch (e) {
+            return true;
+          }
+        }
+        function resolve(app, pal) {
+          if (app === "light") return "light";
+          if (app === "dark") return pal === "midnight" ? "midnight" : "dark";
+          if (app === "system") return prefDark() ? (pal === "midnight" ? "midnight" : "dark") : "light";
+          return "dark";
+        }
+        try {
+          var app = localStorage.getItem("pq-jwt-debugger-appearance");
+          var pal = localStorage.getItem("pq-jwt-debugger-dark-palette");
+          if (pal !== "midnight") pal = "pq";
+          if (app !== "system" && app !== "light" && app !== "dark") {
+            var leg = localStorage.getItem("pq-jwt-debugger-theme");
+            if (leg === "light") app = "light";
+            else if (leg === "midnight") {
+              app = "dark";
+              pal = "midnight";
+            } else if (leg === "dark") {
+              app = "dark";
+              pal = "pq";
+            } else app = "dark";
+          }
+          if (app !== "system" && app !== "light" && app !== "dark") app = "dark";
+          document.documentElement.setAttribute("data-theme", resolve(app, pal));
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta

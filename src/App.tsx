@@ -5,6 +5,24 @@ import SignPanel from "./components/SignPanel";
 import VerifyPanel from "./components/VerifyPanel";
 import SizeComparePanel from "./components/SizeComparePanel";
 import ExpressEcosystemPanel from "./components/ExpressEcosystemPanel";
+import JwtEncodedField from "./components/JwtEncodedField";
+import FieldLabelRow from "./components/FieldLabelRow";
+import ThemeSwitcher from "./components/ThemeSwitcher";
+import LibraryCta from "./components/LibraryCta";
+import EcosystemShowcase from "./components/EcosystemShowcase";
+import { useTheme } from "./hooks/useTheme";
+import {
+  GITHUB_DEBUGGER_ISSUES,
+  GITHUB_DEBUGGER_NEW_ISSUE,
+  GITHUB_ORG,
+  NPM_CORE,
+  NPM_EXPRESS,
+  NPM_HYBRID,
+  NPM_ORG_PQ_JOSE,
+  NPM_ORG_PQ_JWT,
+  NPM_PQ_JOSE,
+  PQ_JWT_WEBSITE,
+} from "./lib/ecosystem-links";
 
 const HybridPanel = lazy(() => import("./components/HybridPanel"));
 const PQJosePanel = lazy(() => import("./components/PQJosePanel"));
@@ -31,6 +49,7 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 export default function App() {
+  const { appearance, setAppearance, darkPalette, setDarkPalette, resolvedTheme } = useTheme();
   const [tab, setTab] = useState<Tab>("decode");
   const [token, setToken] = useState("");
   const [privateKey, setPrivateKey] = useState("");
@@ -48,19 +67,38 @@ export default function App() {
   return (
     <div className="app">
       <header className="site-header">
-        <h1>
-          PQ<span>-JWT</span> Debugger
-        </h1>
-        <p className="tagline">
-          Full PQ-JWT ecosystem in the browser — core, hybrid composite JWTs, PQ-JOSE (JWK / JWE), plus
-          Express patterns for Node APIs.
-        </p>
-        <div className="badge-row">
-          <span className="badge pq">ML-DSA / FIPS 204</span>
-          <span className="badge">No backend</span>
-          <span className="badge pq-eco">@pq-jwt/core</span>
-          <span className="badge">@pq-jwt/hybrid</span>
-          <span className="badge">@pq-jose/jose</span>
+        <div className="site-header-row">
+          <div className="site-header-inner">
+            <h1>
+              PQ<span>-JWT</span> Debugger
+            </h1>
+            <p className="tagline">
+              Full PQ-JWT ecosystem in the browser — core, hybrid composite JWTs, PQ-JOSE (JWK / JWE), plus
+              Express patterns for Node APIs.
+            </p>
+            <div className="badge-row">
+              <a className="badge pq" href={PQ_JWT_WEBSITE} target="_blank" rel="noreferrer">
+                ML-DSA / FIPS 204
+              </a>
+              <span className="badge">No backend</span>
+              <a className="badge pq-eco" href={NPM_CORE} target="_blank" rel="noreferrer">
+                @pq-jwt/core
+              </a>
+              <a className="badge" href={NPM_HYBRID} target="_blank" rel="noreferrer">
+                @pq-jwt/hybrid
+              </a>
+              <a className="badge" href={NPM_PQ_JOSE} target="_blank" rel="noreferrer">
+                @pq-jose/jose
+              </a>
+            </div>
+          </div>
+          <ThemeSwitcher
+            appearance={appearance}
+            darkPalette={darkPalette}
+            resolvedTheme={resolvedTheme}
+            onAppearanceChange={setAppearance}
+            onDarkPaletteChange={setDarkPalette}
+          />
         </div>
       </header>
 
@@ -78,21 +116,21 @@ export default function App() {
       </nav>
 
       {tab === "decode" && (
-        <section className="panel">
+        <section className="panel panel-decode">
           <h2>Encoded token</h2>
           <p className="hint">
-            Paste a PQ-JWT below. Header and payload decode locally; signature is shown by size only
-            until you verify on the Verify tab.
+            Paste a PQ-JWT below. Header and payload decode locally; signature is shown by size only until you
+            verify on the Verify tab.
           </p>
           <div className="field">
             <label htmlFor="encoded-jwt">PQ-JWT</label>
-            <textarea
+            <JwtEncodedField
               id="encoded-jwt"
               placeholder="eyJhbGciOiJNTC1EU0EtNjUiLCJ0eXAiOiJQUS1KV1QiLCJ2ZXIiOiIxIn0..."
               value={token}
-              onChange={(e) => setToken(e.target.value)}
-              rows={6}
-              spellCheck={false}
+              onChange={setToken}
+              rows={10}
+              showColoredPreview
             />
           </div>
           <TokenDecoder token={token} />
@@ -111,7 +149,9 @@ export default function App() {
           <section className="panel">
             <h2>Secret key</h2>
             <div className="field">
-              <label htmlFor="sign-privkey">Secret key (hex only — from Keys tab)</label>
+              <FieldLabelRow htmlFor="sign-privkey" copy={{ text: privateKey, label: "secret key" }}>
+                Secret key (hex only — from Keys tab)
+              </FieldLabelRow>
               <textarea
                 id="sign-privkey"
                 value={privateKey}
@@ -143,26 +183,50 @@ export default function App() {
 
       {tab === "express" && <ExpressEcosystemPanel />}
 
+      <EcosystemShowcase />
+
+      <LibraryCta />
+
       <footer className="site-footer">
+        <p className="footer-feedback">
+          <a href={GITHUB_DEBUGGER_ISSUES} target="_blank" rel="noreferrer">
+            Share feedback
+          </a>
+          <span className="footer-sep">|</span>
+          <a href={GITHUB_DEBUGGER_NEW_ISSUE} target="_blank" rel="noreferrer">
+            Report issue
+          </a>
+        </p>
         <p>
-          Ecosystem:{" "}
-          <a href="https://www.npmjs.com/package/@pq-jwt/core" target="_blank" rel="noreferrer">
-            @pq-jwt/core
+          <a href={PQ_JWT_WEBSITE} target="_blank" rel="noreferrer">
+            pq-jwt.github.io
           </a>
           {" · "}
-          <a href="https://www.npmjs.com/package/@pq-jwt/hybrid" target="_blank" rel="noreferrer">
-            @pq-jwt/hybrid
+          <a href={NPM_ORG_PQ_JWT} target="_blank" rel="noreferrer">
+            @pq-jwt on npm
           </a>
           {" · "}
-          <a href="https://www.npmjs.com/package/@pq-jose/jose" target="_blank" rel="noreferrer">
-            @pq-jose/jose
+          <a href={NPM_ORG_PQ_JOSE} target="_blank" rel="noreferrer">
+            @pq-jose on npm
           </a>
           {" · "}
-          <a href="https://www.npmjs.com/package/@pq-jwt/express" target="_blank" rel="noreferrer">
-            @pq-jwt/express
+          <a href={NPM_CORE} target="_blank" rel="noreferrer">
+            core
           </a>
           {" · "}
-          <a href="https://github.com/pq-jwt/PQ-JWT" target="_blank" rel="noreferrer">
+          <a href={NPM_HYBRID} target="_blank" rel="noreferrer">
+            hybrid
+          </a>
+          {" · "}
+          <a href={NPM_PQ_JOSE} target="_blank" rel="noreferrer">
+            jose
+          </a>
+          {" · "}
+          <a href={NPM_EXPRESS} target="_blank" rel="noreferrer">
+            express
+          </a>
+          {" · "}
+          <a href={GITHUB_ORG} target="_blank" rel="noreferrer">
             GitHub
           </a>
           {" · Inspired by "}

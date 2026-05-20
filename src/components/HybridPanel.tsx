@@ -8,6 +8,8 @@ import {
   SUPPORTED_ALGORITHMS,
 } from "@pq-jwt/hybrid";
 import { formatJson, normalizeHexKey } from "../lib/jwt-utils";
+import { DEFAULT_ISSUER } from "../lib/ecosystem-links";
+import FieldLabelRow from "./FieldLabelRow";
 
 const DEFAULT_ALG = "ML-DSA-65-ES256";
 
@@ -15,7 +17,7 @@ export default function HybridPanel() {
   const [algorithm, setAlgorithm] = useState(DEFAULT_ALG);
   const [pubHex, setPubHex] = useState("");
   const [privHex, setPrivHex] = useState("");
-  const [issuer, setIssuer] = useState("https://pqjwt.io");
+  const [issuer, setIssuer] = useState(DEFAULT_ISSUER);
   const [expiresIn, setExpiresIn] = useState("3600");
   const [claimsJson, setClaimsJson] = useState('{\n  "sub": "user@example.com",\n  "role": "admin"\n}');
   const [token, setToken] = useState("");
@@ -140,13 +142,17 @@ export default function HybridPanel() {
 
       {pubHex && (
         <div className="field" style={{ marginTop: "1rem" }}>
-          <label>Composite public key (hex)</label>
+          <FieldLabelRow copy={{ text: pubHex, label: "composite public key" }}>
+            Composite public key (hex)
+          </FieldLabelRow>
           <div className="key-display">{pubHex}</div>
         </div>
       )}
       {privHex && (
         <div className="field">
-          <label>Composite secret key (hex)</label>
+          <FieldLabelRow copy={{ text: privHex, label: "composite secret key" }}>
+            Composite secret key (hex)
+          </FieldLabelRow>
           <div className="key-display">{privHex}</div>
         </div>
       )}
@@ -178,14 +184,18 @@ export default function HybridPanel() {
       </div>
       {token && (
         <div className="field" style={{ marginTop: "1rem" }}>
-          <label>Token</label>
+          <FieldLabelRow copy={{ text: token, label: "composite JWT" }}>
+            Token
+          </FieldLabelRow>
           <textarea readOnly value={token} rows={4} spellCheck={false} />
         </div>
       )}
 
       <h3 style={{ marginTop: "1.5rem", fontSize: "1rem" }}>Verify</h3>
       <div className="field">
-        <label htmlFor="hybrid-verify-jwt">JWT</label>
+        <FieldLabelRow htmlFor="hybrid-verify-jwt" copy={{ text: verifyTokenInput, label: "JWT" }}>
+          JWT
+        </FieldLabelRow>
         <textarea
           id="hybrid-verify-jwt"
           value={verifyTokenInput}
@@ -195,7 +205,9 @@ export default function HybridPanel() {
         />
       </div>
       <div className="field">
-        <label htmlFor="hybrid-verify-pk">Composite public key (hex)</label>
+        <FieldLabelRow htmlFor="hybrid-verify-pk" copy={{ text: verifyPubHex, label: "public key" }}>
+          Composite public key (hex)
+        </FieldLabelRow>
         <textarea
           id="hybrid-verify-pk"
           value={verifyPubHex}
@@ -212,7 +224,9 @@ export default function HybridPanel() {
 
       <h3 style={{ marginTop: "1.5rem", fontSize: "1rem" }}>Decode (no verify)</h3>
       <div className="field">
-        <label htmlFor="hybrid-decode">JWT</label>
+        <FieldLabelRow htmlFor="hybrid-decode" copy={{ text: decodeInput, label: "JWT" }}>
+          JWT
+        </FieldLabelRow>
         <textarea
           id="hybrid-decode"
           value={decodeInput}
@@ -229,9 +243,12 @@ export default function HybridPanel() {
 
       {error && <div className="status err" style={{ marginTop: "1rem" }}>{error}</div>}
       {result && !error && (
-        <pre className="json-block payload" style={{ marginTop: "1rem" }}>
-          {result}
-        </pre>
+        <div className="field" style={{ marginTop: "1rem" }}>
+          <FieldLabelRow copy={{ text: result, label: "decode result" }}>
+            Decode result
+          </FieldLabelRow>
+          <pre className="json-block payload">{result}</pre>
+        </div>
       )}
     </section>
   );

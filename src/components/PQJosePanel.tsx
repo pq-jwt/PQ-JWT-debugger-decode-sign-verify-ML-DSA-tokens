@@ -10,6 +10,8 @@ import {
   jwtDecrypt,
 } from "@pq-jose/jose";
 import { formatJson, normalizeHexKey } from "../lib/jwt-utils";
+import { DEFAULT_ISSUER } from "../lib/ecosystem-links";
+import FieldLabelRow from "./FieldLabelRow";
 
 const SIGNING_ALGS = ["ML-DSA-44", "ML-DSA-65", "ML-DSA-87", "SLH-DSA-SHA2-128s"] as const;
 const KEM_ALGS = ["ML-KEM-512", "ML-KEM-768", "ML-KEM-1024"] as const;
@@ -21,7 +23,7 @@ export default function PQJosePanel() {
   const [privHex, setPrivHex] = useState("");
   const [kemPubHex, setKemPubHex] = useState("");
   const [jwkJson, setJwkJson] = useState("");
-  const [issuer, setIssuer] = useState("https://pqjwt.io");
+  const [issuer, setIssuer] = useState(DEFAULT_ISSUER);
   const [claimsJson, setClaimsJson] = useState('{\n  "sub": "user@example.com"\n}');
   const [signedJwt, setSignedJwt] = useState("");
   const [verifyInput, setVerifyInput] = useState("");
@@ -218,19 +220,25 @@ export default function PQJosePanel() {
       </div>
       {jwkJson && (
         <div className="field" style={{ marginTop: "1rem" }}>
-          <label>AKP JWK (public)</label>
+          <FieldLabelRow copy={{ text: jwkJson, label: "JWK" }}>
+            AKP JWK (public)
+          </FieldLabelRow>
           <pre className="json-block header">{jwkJson}</pre>
         </div>
       )}
       {pubHex && (
         <div className="field">
-          <label>Public key (hex)</label>
+          <FieldLabelRow copy={{ text: pubHex, label: "public key" }}>
+            Public key (hex)
+          </FieldLabelRow>
           <div className="key-display">{pubHex}</div>
         </div>
       )}
       {privHex && (
         <div className="field">
-          <label>Secret key (hex)</label>
+          <FieldLabelRow copy={{ text: privHex, label: "secret key" }}>
+            Secret key (hex)
+          </FieldLabelRow>
           <div className="key-display">{privHex}</div>
         </div>
       )}
@@ -245,18 +253,24 @@ export default function PQJosePanel() {
       </div>
       {signedJwt && (
         <div className="field">
-          <label>Signed JWT</label>
+          <FieldLabelRow copy={{ text: signedJwt, label: "signed JWT" }}>
+            Signed JWT
+          </FieldLabelRow>
           <textarea readOnly value={signedJwt} rows={3} spellCheck={false} />
         </div>
       )}
 
       <h3 style={{ marginTop: "1.5rem", fontSize: "1rem" }}>jwtVerify</h3>
       <div className="field">
-        <label htmlFor="jose-verify-jwt">JWT</label>
+        <FieldLabelRow htmlFor="jose-verify-jwt" copy={{ text: verifyInput, label: "JWT" }}>
+          JWT
+        </FieldLabelRow>
         <textarea id="jose-verify-jwt" value={verifyInput} onChange={(e) => setVerifyInput(e.target.value)} rows={2} />
       </div>
       <div className="field">
-        <label htmlFor="jose-verify-pk">Public key (hex)</label>
+        <FieldLabelRow htmlFor="jose-verify-pk" copy={{ text: verifyPub, label: "public key" }}>
+          Public key (hex)
+        </FieldLabelRow>
         <textarea id="jose-verify-pk" value={verifyPub} onChange={(e) => setVerifyPub(e.target.value)} rows={2} />
       </div>
       <div className="btn-row">
@@ -294,12 +308,16 @@ export default function PQJosePanel() {
       )}
       {jweToken && (
         <div className="field">
-          <label>JWE (5 segments)</label>
+          <FieldLabelRow copy={{ text: jweToken, label: "JWE token" }}>
+            JWE (5 segments)
+          </FieldLabelRow>
           <textarea readOnly value={jweToken} rows={2} spellCheck={false} />
         </div>
       )}
       <div className="field">
-        <label htmlFor="jose-jwe-sk">Recipient secret (hex) for decrypt</label>
+        <FieldLabelRow htmlFor="jose-jwe-sk" copy={{ text: jweDecryptKey, label: "recipient secret key" }}>
+          Recipient secret (hex) for decrypt
+        </FieldLabelRow>
         <textarea
           id="jose-jwe-sk"
           value={jweDecryptKey}
@@ -316,9 +334,12 @@ export default function PQJosePanel() {
 
       {error && <div className="status err" style={{ marginTop: "1rem" }}>{error}</div>}
       {result && !error && (
-        <pre className="json-block payload" style={{ marginTop: "1rem" }}>
-          {result}
-        </pre>
+        <div className="field" style={{ marginTop: "1rem" }}>
+          <FieldLabelRow copy={{ text: result, label: "result" }}>
+            Result
+          </FieldLabelRow>
+          <pre className="json-block payload">{result}</pre>
+        </div>
       )}
     </section>
   );

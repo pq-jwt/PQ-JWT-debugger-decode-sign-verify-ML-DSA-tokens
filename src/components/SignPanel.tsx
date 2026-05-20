@@ -7,6 +7,8 @@ import {
   type Algorithm,
 } from "../lib/pq-crypto";
 import { isHexKey } from "../lib/jwt-utils";
+import FieldLabelRow from "./FieldLabelRow";
+import { DEFAULT_ISSUER } from "../lib/ecosystem-links";
 
 interface Props {
   privateKey: string;
@@ -15,7 +17,7 @@ interface Props {
 
 export default function SignPanel({ privateKey, onSigned }: Props) {
   const [algo, setAlgo] = useState<Algorithm>(DEFAULT_ALGORITHM);
-  const [issuer, setIssuer] = useState("https://pqjwt.io");
+  const [issuer, setIssuer] = useState(DEFAULT_ISSUER);
   const [expiresIn, setExpiresIn] = useState("3600");
   const [claimsJson, setClaimsJson] = useState('{\n  "sub": "user@example.com",\n  "name": "Alice"\n}');
   const [result, setResult] = useState<string | null>(null);
@@ -109,8 +111,10 @@ export default function SignPanel({ privateKey, onSigned }: Props) {
       {error && <div className="status err">{error}</div>}
       {result && (
         <div className="field" style={{ marginTop: "1rem" }}>
-          <label>Signed JWT</label>
-          <textarea readOnly value={result} rows={6} />
+          <FieldLabelRow copy={{ text: result, label: "signed JWT" }}>
+            Signed JWT
+          </FieldLabelRow>
+          <textarea readOnly value={result} rows={6} spellCheck={false} />
           <div className="status ok">Token signed successfully. See Decode tab or Size Compare.</div>
         </div>
       )}

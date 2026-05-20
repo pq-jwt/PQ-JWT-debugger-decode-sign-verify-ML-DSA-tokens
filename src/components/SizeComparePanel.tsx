@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signToken } from "../lib/pq-crypto";
 import { buildRs256Jwt, compareSizes, type SizeComparison } from "../lib/rs256-compare";
 import { formatBytes } from "../lib/jwt-utils";
+import { DEFAULT_ISSUER } from "../lib/ecosystem-links";
 
 interface Props {
   privateKey: string;
@@ -28,10 +29,12 @@ export default function SizeComparePanel({ privateKey }: Props) {
 
     setBusy(true);
     try {
-      const issuer = "https://pqjwt.io";
       const [{ jwt: pqJwt }, rs256Jwt] = await Promise.all([
-        signToken("ML-DSA-65", privateKey, issuer, 3600, SAMPLE_CLAIMS),
-        buildRs256Jwt(issuer, SAMPLE_CLAIMS.sub, { name: SAMPLE_CLAIMS.name, role: SAMPLE_CLAIMS.role }),
+        signToken("ML-DSA-65", privateKey, DEFAULT_ISSUER, 3600, SAMPLE_CLAIMS),
+        buildRs256Jwt(DEFAULT_ISSUER, SAMPLE_CLAIMS.sub, {
+          name: SAMPLE_CLAIMS.name,
+          role: SAMPLE_CLAIMS.role,
+        }),
       ]);
       setComparison(compareSizes(rs256Jwt, pqJwt));
     } catch (e) {

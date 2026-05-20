@@ -4,6 +4,8 @@ Browser-based developer tool for the **PQ-JWT ecosystem** — decode, sign, and 
 
 Runs entirely client-side (no backend). Uses [**@pq-jwt/core**](https://www.npmjs.com/package/@pq-jwt/core), [**@pq-jwt/hybrid**](https://www.npmjs.com/package/@pq-jwt/hybrid), and [**@pq-jose/jose**](https://www.npmjs.com/package/@pq-jose/jose) in the browser, plus [jose](https://github.com/panva/jose) for the RS256 baseline.
 
+Ecosystem: [pq-jwt.github.io](https://pq-jwt.github.io/) · [GitHub @pq-jwt](https://github.com/pq-jwt) · [npm @pq-jwt](https://www.npmjs.com/org/pq-jwt) · [npm @pq-jose](https://www.npmjs.com/org/pq-jose)
+
 ## PQ-JWT ecosystem (this repo)
 
 | Package | In this app |
@@ -21,6 +23,16 @@ Runs entirely client-side (no backend). Uses [**@pq-jwt/core**](https://www.npmj
 - **Hybrid** — Composite ML-DSA + classical (`@pq-jwt/hybrid` v0.0.2 API)
 - **PQ-JOSE** — jose-style JWT + JWE + JWK (`@pq-jose/jose`)
 - **Express** — copy-paste server pattern for `@pq-jwt/express`
+
+## Themes
+
+Header **Theme** control:
+
+- **System** — follows `prefers-color-scheme` (light uses the jwt.io-style palette; dark uses your chosen dark style)
+- **Dark** — PQ dark (mint) or **Midnight** (violet), selectable when dark or system resolves to dark
+- **Light** — jwt.io-style light UI (gray page, white cards, red / purple / green segment colors in the encode preview)
+
+Preferences: `pq-jwt-debugger-appearance` (`system` | `light` | `dark`), `pq-jwt-debugger-dark-palette` (`pq` | `midnight`). The legacy key `pq-jwt-debugger-theme` is still updated for compatibility. `index.html` runs a boot script so the resolved theme applies before first paint.
 
 ## Quick start
 

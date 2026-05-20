@@ -1,0 +1,396 @@
+/* Marketing / education blocks — always dark grid aesthetic (all page themes) */
+.eco-showcase {
+  --eco-bg: #080a0e;
+  --eco-surface: #0f1218;
+  --eco-border: #1e2636;
+  --eco-text: #f0f4f8;
+  --eco-muted: #8b95a8;
+  --eco-teal: #3dffa8;
+  --eco-teal-dim: rgba(61, 255, 168, 0.15);
+  --eco-red: #ff4d6d;
+  --eco-red-dim: rgba(255, 77, 109, 0.12);
+  --eco-mono: "JetBrains Mono", ui-monospace, monospace;
+  --eco-sans: "Outfit", system-ui, sans-serif;
+
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.eco-block {
+  position: relative;
+  padding: 2rem 1.5rem 2.25rem;
+  border-radius: 14px;
+  background-color: var(--eco-bg);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 1px solid var(--eco-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.eco-kicker {
+  font-family: var(--eco-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.eco-kicker-teal {
+  color: var(--eco-teal);
+}
+
+.eco-kicker-red {
+  color: var(--eco-red);
+}
+
+.eco-title {
+  font-family: var(--eco-sans);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--eco-text);
+  margin: 0 0 0.85rem;
+  max-width: 28ch;
+}
+
+.eco-lead {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--eco-muted);
+  margin: 0 0 1.5rem;
+  max-width: 52rem;
+}
+
+.eco-lead a,
+.eco-footnote a,
+.eco-pkg-name a,
+.eco-noble-lead a {
+  color: var(--eco-teal);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.eco-lead a:hover,
+.eco-footnote a:hover,
+.eco-pkg-name a:hover,
+.eco-noble-lead a:hover {
+  text-decoration: underline;
+}
+
+/* Noble stack */
+.eco-noble-row {
+  margin-bottom: 1.75rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 12px;
+  background: var(--eco-surface);
+  border: 1px solid var(--eco-border);
+}
+
+.eco-noble-heading {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--eco-text);
+}
+
+.eco-noble-lead {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--eco-muted);
+  line-height: 1.55;
+  max-width: 48rem;
+}
+
+.eco-noble-pills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.eco-noble-pills li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+}
+
+.eco-pill {
+  display: inline-block;
+  font-family: var(--eco-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--eco-border);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.eco-pill-noble {
+  color: var(--eco-teal);
+  background: var(--eco-teal-dim);
+  border-color: rgba(61, 255, 168, 0.35);
+}
+
+.eco-pill-noble:hover {
+  border-color: var(--eco-teal);
+  background: rgba(61, 255, 168, 0.22);
+}
+
+.eco-pill-desc {
+  font-size: 0.82rem;
+  color: var(--eco-muted);
+}
+
+/* npm package cards */
+.eco-pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.eco-pkg-card {
+  padding: 1.15rem 1.25rem;
+  border-radius: 12px;
+  background: var(--eco-surface);
+  border: 1px solid var(--eco-border);
+  transition: border-color 0.15s;
+}
+
+.eco-pkg-card:hover {
+  border-color: rgba(61, 255, 168, 0.35);
+}
+
+.eco-pkg-role {
+  display: block;
+  font-family: var(--eco-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--eco-teal);
+  margin-bottom: 0.4rem;
+}
+
+.eco-pkg-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.eco-pkg-name a {
+  color: var(--eco-text);
+  text-decoration: none;
+}
+
+.eco-pkg-name a:hover {
+  color: var(--eco-teal);
+}
+
+.eco-pkg-desc {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--eco-muted);
+}
+
+.eco-pkg-app {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--eco-muted);
+}
+
+.eco-pkg-app span {
+  color: var(--eco-text);
+  font-weight: 600;
+}
+
+/* Problem / resistant 2×2 */
+.eco-algo-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.eco-algo-grid-4 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 720px) {
+  .eco-algo-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eco-algo-card {
+  padding: 1.35rem 1.4rem 1.5rem;
+  border-radius: 12px;
+  background: var(--eco-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.eco-algo-card-broken {
+  border: 1px solid rgba(255, 77, 109, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 77, 109, 0.08);
+}
+
+.eco-algo-card-safe {
+  border: 1px solid rgba(61, 255, 168, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(61, 255, 168, 0.06);
+}
+
+.eco-algo-status {
+  font-family: var(--eco-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.eco-algo-status-broken {
+  color: var(--eco-red);
+}
+
+.eco-algo-status-safe {
+  color: var(--eco-teal);
+}
+
+.eco-algo-name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--eco-text);
+  letter-spacing: -0.02em;
+}
+
+.eco-algo-body {
+  margin: 0;
+  flex: 1;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--eco-muted);
+}
+
+.eco-algo-tag {
+  align-self: flex-start;
+  font-family: var(--eco-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+.eco-algo-tag-broken {
+  color: var(--eco-red);
+  background: var(--eco-red-dim);
+  border: 1px solid rgba(255, 77, 109, 0.35);
+}
+
+.eco-algo-tag-safe {
+  color: var(--eco-teal);
+  background: var(--eco-teal-dim);
+  border: 1px solid rgba(61, 255, 168, 0.3);
+}
+
+/* NIST algorithm cards */
+.eco-nist-card {
+  padding: 1.35rem 1.4rem;
+  border-radius: 12px;
+  background: var(--eco-surface);
+  border: 1px solid var(--eco-border);
+}
+
+.eco-nist-card-rec {
+  border-color: rgba(61, 255, 168, 0.5);
+  box-shadow: 0 0 0 1px rgba(61, 255, 168, 0.12);
+}
+
+.eco-nist-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.eco-nist-id {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--eco-teal);
+  letter-spacing: -0.02em;
+}
+
+.eco-rec-badge {
+  font-family: var(--eco-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: var(--eco-teal);
+  border: 1px solid rgba(61, 255, 168, 0.45);
+  background: var(--eco-teal-dim);
+}
+
+.eco-nist-fips {
+  margin: 0 0 0.5rem;
+  font-family: var(--eco-mono);
+  font-size: 0.72rem;
+  color: var(--eco-muted);
+}
+
+.eco-nist-desc {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--eco-muted);
+}
+
+.eco-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1rem;
+}
+
+.eco-stat-value {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--eco-text);
+  letter-spacing: -0.02em;
+}
+
+.eco-stat-label {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--eco-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--eco-muted);
+}
+
+.eco-footnote {
+  margin: 1.25rem 0 0;
+  font-size: 0.82rem;
+  color: var(--eco-muted);
+  line-height: 1.55;
+  max-width: 48rem;
+}
+
+[data-theme="light"] .eco-showcase .eco-block {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}

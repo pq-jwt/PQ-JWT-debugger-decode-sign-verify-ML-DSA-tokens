@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FieldLabelRow from "./FieldLabelRow";
 import {
   generateKeys,
   DEFAULT_ALGORITHM,
@@ -32,9 +33,13 @@ export default function KeyGenPanel({ onKeysGenerated }: Props) {
       <h2>Generate ML-DSA key pair</h2>
       <p className="hint">
         Keys are generated in your browser via{" "}
-        <a href="https://www.npmjs.com/package/@pq-jwt/core" target="_blank" rel="noreferrer">
-          @pq-jwt/core
+        <a href="https://www.npmjs.com/org/pq-jwt" target="_blank" rel="noreferrer">
+          @pq-jwt
         </a>{" "}
+        (<a href="https://www.npmjs.com/package/@pq-jwt/core" target="_blank" rel="noreferrer">
+          core
+        </a>
+        ){" "}
         (@noble/post-quantum, FIPS 204). Never leave this device.
       </p>
 
@@ -66,11 +71,15 @@ export default function KeyGenPanel({ onKeysGenerated }: Props) {
       {keys && (
         <>
           <div className="field" style={{ marginTop: "1rem" }}>
-            <label>Public key (hex)</label>
+            <FieldLabelRow copy={{ text: keys.publicKey, label: "public key" }}>
+              Public key (hex)
+            </FieldLabelRow>
             <div className="key-display">{keys.publicKey}</div>
           </div>
           <div className="field">
-            <label>Secret key (hex) — keep secret</label>
+            <FieldLabelRow copy={{ text: keys.privateKey, label: "secret key" }}>
+              Secret key (hex) — keep secret
+            </FieldLabelRow>
             <div className="key-display">{keys.privateKey}</div>
           </div>
         </>
