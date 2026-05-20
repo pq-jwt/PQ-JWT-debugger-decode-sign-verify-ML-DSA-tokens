@@ -970,14 +970,70 @@ textarea {
 
 .site-footer {
   text-align: center;
-  margin-top: 2rem;
-  font-size: 0.8rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
   color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-row {
+  margin: 0;
+  max-width: 40rem;
+  line-height: 1.55;
+}
+
+.footer-nav,
+.footer-standards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 1.25rem;
+}
+
+.footer-nav a,
+.footer-standards a {
+  font-weight: 500;
+}
+
+.footer-standards a {
+  font-size: 0.8rem;
+}
+
+.footer-security {
+  font-size: 0.82rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent-dim) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-dim) 22%, transparent);
+}
+
+[data-theme="dark"] .footer-security {
+  background: rgba(61, 255, 168, 0.06);
+  border-color: rgba(61, 255, 168, 0.18);
+}
+
+.footer-lock {
+  filter: none;
+}
+
+.footer-attribution {
+  font-size: 0.78rem;
+  opacity: 0.9;
 }
 
 .site-footer a {
   color: var(--accent-dim);
   text-decoration: none;
+}
+
+[data-theme="dark"] .site-footer a {
+  color: var(--accent);
 }
 
 .site-footer a:hover {

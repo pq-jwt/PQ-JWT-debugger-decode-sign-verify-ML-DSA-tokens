@@ -10,19 +10,9 @@ import FieldLabelRow from "./components/FieldLabelRow";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import LibraryCta from "./components/LibraryCta";
 import EcosystemShowcase from "./components/EcosystemShowcase";
+import SiteFooter from "./components/SiteFooter";
 import { useTheme } from "./hooks/useTheme";
-import {
-  GITHUB_DEBUGGER_ISSUES,
-  GITHUB_DEBUGGER_NEW_ISSUE,
-  GITHUB_ORG,
-  NPM_CORE,
-  NPM_EXPRESS,
-  NPM_HYBRID,
-  NPM_ORG_PQ_JOSE,
-  NPM_ORG_PQ_JWT,
-  NPM_PQ_JOSE,
-  PQ_JWT_WEBSITE,
-} from "./lib/ecosystem-links";
+import { NPM_CORE, NPM_HYBRID, NPM_PQ_JOSE, PQ_JWT_WEBSITE } from "./lib/ecosystem-links";
 
 const HybridPanel = lazy(() => import("./components/HybridPanel"));
 const PQJosePanel = lazy(() => import("./components/PQJosePanel"));
@@ -187,54 +177,7 @@ export default function App() {
 
       <LibraryCta />
 
-      <footer className="site-footer">
-        <p className="footer-feedback">
-          <a href={GITHUB_DEBUGGER_ISSUES} target="_blank" rel="noreferrer">
-            Share feedback
-          </a>
-          <span className="footer-sep">|</span>
-          <a href={GITHUB_DEBUGGER_NEW_ISSUE} target="_blank" rel="noreferrer">
-            Report issue
-          </a>
-        </p>
-        <p>
-          <a href={PQ_JWT_WEBSITE} target="_blank" rel="noreferrer">
-            pq-jwt.github.io
-          </a>
-          {" · "}
-          <a href={NPM_ORG_PQ_JWT} target="_blank" rel="noreferrer">
-            @pq-jwt on npm
-          </a>
-          {" · "}
-          <a href={NPM_ORG_PQ_JOSE} target="_blank" rel="noreferrer">
-            @pq-jose on npm
-          </a>
-          {" · "}
-          <a href={NPM_CORE} target="_blank" rel="noreferrer">
-            core
-          </a>
-          {" · "}
-          <a href={NPM_HYBRID} target="_blank" rel="noreferrer">
-            hybrid
-          </a>
-          {" · "}
-          <a href={NPM_PQ_JOSE} target="_blank" rel="noreferrer">
-            jose
-          </a>
-          {" · "}
-          <a href={NPM_EXPRESS} target="_blank" rel="noreferrer">
-            express
-          </a>
-          {" · "}
-          <a href={GITHUB_ORG} target="_blank" rel="noreferrer">
-            GitHub
-          </a>
-          {" · Inspired by "}
-          <a href="https://jwt.io" target="_blank" rel="noreferrer">
-            jwt.io
-          </a>
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
