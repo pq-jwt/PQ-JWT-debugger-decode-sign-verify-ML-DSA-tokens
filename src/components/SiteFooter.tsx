@@ -1,7 +1,6 @@
 import {
   APP_VERSION,
   AUTHOR_GITHUB,
-  CONTACT_EMAIL,
   GITHUB_DEBUGGER_REPO,
   GITHUB_ORG,
   IETF_COSE_DILITHIUM,
@@ -10,10 +9,17 @@ import {
   NPM_CORE,
   PQ_JWT_WEBSITE,
 } from "../lib/ecosystem-links";
+import ContactEmails from "./ContactEmails";
+import NewsletterSignup from "./NewsletterSignup";
 
 export default function SiteFooter() {
   return (
     <footer className="site-footer">
+      <div className="footer-community">
+        <NewsletterSignup />
+        <ContactEmails />
+      </div>
+
       <nav className="footer-row footer-nav" aria-label="Site links">
         <a href={GITHUB_ORG} target="_blank" rel="noreferrer">
           GitHub
@@ -24,7 +30,6 @@ export default function SiteFooter() {
         <a href={PQ_JWT_WEBSITE} target="_blank" rel="noreferrer">
           Docs
         </a>
-        <a href={CONTACT_EMAIL}>Contact</a>
       </nav>
 
       <nav className="footer-row footer-standards" aria-label="Standards references">

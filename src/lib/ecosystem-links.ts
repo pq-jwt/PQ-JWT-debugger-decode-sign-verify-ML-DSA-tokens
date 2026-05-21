@@ -21,7 +21,28 @@ export const GITHUB_DEBUGGER_REPO = `${GITHUB_ORG}/PQ-JWT-debugger-decode-sign-v
 export const GITHUB_DEBUGGER_ISSUES = `${GITHUB_DEBUGGER_REPO}/issues`;
 export const GITHUB_DEBUGGER_NEW_ISSUE = `${GITHUB_DEBUGGER_ISSUES}/new`;
 
-export const CONTACT_EMAIL = "mailto:pq-jwt@pq-jwt.dev";
+export const EMAIL_GENERAL = "mailto:pq-jwt@pq-jwt.dev";
+/** @deprecated Use EMAIL_GENERAL */
+export const CONTACT_EMAIL = EMAIL_GENERAL;
+
+export const EMAIL_SUPPORT = "mailto:support@pq-jwt.dev";
+export const EMAIL_SECURITY = "mailto:security@pq-jwt.dev";
+export const EMAIL_SPONSOR = "mailto:sponsor@pq-jwt.dev";
+export const EMAIL_SACHIN = "mailto:sachin@pq-jwt.dev";
+
+/** Buttondown publication slug — change if your list uses a different username */
+export const BUTTONDOWN_USERNAME = "pq-jwt";
+export const BUTTONDOWN_SUBSCRIBE_ACTION = `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`;
+
+/** Matches Cloudflare Email Routing rules on pq-jwt.dev */
+export const CONTACT_EMAILS = [
+  { address: "pq-jwt@pq-jwt.dev", href: EMAIL_GENERAL, label: "General contact" },
+  { address: "support@pq-jwt.dev", href: EMAIL_SUPPORT, label: "Technical support" },
+  { address: "security@pq-jwt.dev", href: EMAIL_SECURITY, label: "Security reports" },
+  { address: "sponsor@pq-jwt.dev", href: EMAIL_SPONSOR, label: "Sponsorship inquiries" },
+  { address: "sachin@pq-jwt.dev", href: EMAIL_SACHIN, label: "Project lead" },
+] as const;
+
 export const AUTHOR_GITHUB = "https://github.com/ruhil6789";
 
 export const NIST_FIPS_204 = "https://doi.org/10.6028/NIST.FIPS.204";
