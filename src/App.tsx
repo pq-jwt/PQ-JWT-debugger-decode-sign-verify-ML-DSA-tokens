@@ -8,39 +8,21 @@ import ExpressEcosystemPanel from "./components/ExpressEcosystemPanel";
 import JwtEncodedField from "./components/JwtEncodedField";
 import FieldLabelRow from "./components/FieldLabelRow";
 import ThemeSwitcher from "./components/ThemeSwitcher";
+import TrustBar from "./components/TrustBar";
+import TabNav, { type TabId } from "./components/TabNav";
+import WorkflowBanner from "./components/WorkflowBanner";
 import LibraryCta from "./components/LibraryCta";
 import EcosystemShowcase from "./components/EcosystemShowcase";
 import SiteFooter from "./components/SiteFooter";
 import { useTheme } from "./hooks/useTheme";
-import { NPM_CORE, NPM_HYBRID, NPM_PQ_JOSE, PQ_JWT_WEBSITE } from "./lib/ecosystem-links";
+import { PQ_JWT_WEBSITE } from "./lib/ecosystem-links";
 
 const HybridPanel = lazy(() => import("./components/HybridPanel"));
 const PQJosePanel = lazy(() => import("./components/PQJosePanel"));
 
-type Tab =
-  | "decode"
-  | "keys"
-  | "sign"
-  | "verify"
-  | "compare"
-  | "hybrid"
-  | "jose"
-  | "express";
-
-const TABS: { id: Tab; label: string }[] = [
-  { id: "decode", label: "Decode" },
-  { id: "keys", label: "Keys" },
-  { id: "sign", label: "Sign" },
-  { id: "verify", label: "Verify" },
-  { id: "compare", label: "Size compare" },
-  { id: "hybrid", label: "Hybrid" },
-  { id: "jose", label: "PQ-JOSE" },
-  { id: "express", label: "Express" },
-];
-
 export default function App() {
   const { appearance, setAppearance, darkPalette, setDarkPalette, resolvedTheme } = useTheme();
-  const [tab, setTab] = useState<Tab>("decode");
+  const [tab, setTab] = useState<TabId>("decode");
   const [token, setToken] = useState("");
   const [privateKey, setPrivateKey] = useState("");
   const [publicKey, setPublicKey] = useState("");
@@ -70,16 +52,7 @@ export default function App() {
               <a className="badge pq" href={PQ_JWT_WEBSITE} target="_blank" rel="noreferrer">
                 ML-DSA / FIPS 204
               </a>
-              <span className="badge">No backend</span>
-              <a className="badge pq-eco" href={NPM_CORE} target="_blank" rel="noreferrer">
-                @pq-jwt/core
-              </a>
-              <a className="badge" href={NPM_HYBRID} target="_blank" rel="noreferrer">
-                @pq-jwt/hybrid
-              </a>
-              <a className="badge" href={NPM_PQ_JOSE} target="_blank" rel="noreferrer">
-                @pq-jose/jose
-              </a>
+              <span className="badge">Hybrid &amp; PQ-JOSE</span>
             </div>
           </div>
           <ThemeSwitcher
@@ -92,18 +65,26 @@ export default function App() {
         </div>
       </header>
 
-      <nav className="tabs" aria-label="Debugger sections">
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            className={`tab${tab === t.id ? " active" : ""}`}
-            onClick={() => setTab(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </nav>
+      <TrustBar />
+
+      <TabNav active={tab} onChange={setTab} />
+
+      {tab === "decode" && publicKey && token.trim() && (
+        <WorkflowBanner
+          message="Keys loaded — verify this token’s ML-DSA signature locally."
+          actionLabel="Open Verify"
+          onAction={() => setTab("verify")}
+        />
+      )}
+
+      {tab === "keys" && privateKey && publicKey && (
+        <WorkflowBanner
+          variant="success"
+          message="Key pair ready — sign a JWT or paste the public key on Verify."
+          actionLabel="Open Sign"
+          onAction={() => setTab("sign")}
+        />
+      )}
 
       {tab === "decode" && (
         <section className="panel panel-decode">

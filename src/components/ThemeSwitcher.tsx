@@ -92,6 +92,15 @@ export default function ThemeSwitcher({
           <div className="theme-dark-variant-seg">
             <button
               type="button"
+              className={`theme-dark-opt${darkPalette === "aurora" ? " active" : ""}`}
+              onClick={() => onDarkPaletteChange("aurora")}
+              aria-pressed={darkPalette === "aurora"}
+              title="Animated glass — recommended"
+            >
+              Aurora
+            </button>
+            <button
+              type="button"
               className={`theme-dark-opt${darkPalette === "pq" ? " active" : ""}`}
               onClick={() => onDarkPaletteChange("pq")}
               aria-pressed={darkPalette === "pq"}

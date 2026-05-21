@@ -28,11 +28,11 @@ Ecosystem: [pq-jwt.github.io](https://pq-jwt.github.io/) · [GitHub @pq-jwt](htt
 
 Header **Theme** control:
 
-- **System** — follows `prefers-color-scheme` (light uses the jwt.io-style palette; dark uses your chosen dark style)
-- **Dark** — PQ dark (mint) or **Midnight** (violet), selectable when dark or system resolves to dark
-- **Light** — jwt.io-style light UI (gray page, white cards, red / purple / green segment colors in the encode preview)
+- **System** — follows `prefers-color-scheme`
+- **Dark** — choose **Aurora** (default, animated glass + cyan/violet), **PQ dark** (mint), or **Midnight** (violet)
+- **Light** — jwt.io-style light UI (red / purple / green JWT segment colors)
 
-Preferences: `pq-jwt-debugger-appearance` (`system` | `light` | `dark`), `pq-jwt-debugger-dark-palette` (`pq` | `midnight`). The legacy key `pq-jwt-debugger-theme` is still updated for compatibility. `index.html` runs a boot script so the resolved theme applies before first paint.
+Preferences: `pq-jwt-debugger-appearance` (`system` | `light` | `dark`), `pq-jwt-debugger-dark-palette` (`aurora` | `pq` | `midnight`). `index.html` applies the theme before first paint.
 
 ## Quick start
 

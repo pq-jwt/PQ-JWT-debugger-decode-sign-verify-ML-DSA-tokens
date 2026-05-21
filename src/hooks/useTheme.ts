@@ -5,9 +5,9 @@ export const THEME_STORAGE_KEY = "pq-jwt-debugger-theme";
 export const APPEARANCE_KEY = "pq-jwt-debugger-appearance";
 export const DARK_PALETTE_KEY = "pq-jwt-debugger-dark-palette";
 
-export type ThemeId = "dark" | "light" | "midnight";
+export type ThemeId = "dark" | "light" | "midnight" | "aurora";
 export type AppearanceMode = "system" | "light" | "dark";
-export type DarkPaletteId = "pq" | "midnight";
+export type DarkPaletteId = "pq" | "midnight" | "aurora";
 
 function systemPrefersDark(): boolean {
   if (typeof window === "undefined") return true;
@@ -18,12 +18,16 @@ function systemPrefersDark(): boolean {
   }
 }
 
+function paletteToTheme(palette: DarkPaletteId): ThemeId {
+  if (palette === "midnight") return "midnight";
+  if (palette === "aurora") return "aurora";
+  return "dark";
+}
+
 export function resolveDataTheme(appearance: AppearanceMode, darkPalette: DarkPaletteId): ThemeId {
   if (appearance === "light") return "light";
-  if (appearance === "dark") {
-    return darkPalette === "midnight" ? "midnight" : "dark";
-  }
-  return systemPrefersDark() ? (darkPalette === "midnight" ? "midnight" : "dark") : "light";
+  if (appearance === "dark") return paletteToTheme(darkPalette);
+  return systemPrefersDark() ? paletteToTheme(darkPalette) : "light";
 }
 
 export function applyDataTheme(theme: ThemeId) {
@@ -43,12 +47,13 @@ function persistAll(appearance: AppearanceMode, darkPalette: DarkPaletteId, reso
 
 function readInitialPrefs(): { appearance: AppearanceMode; darkPalette: DarkPaletteId } {
   if (typeof window === "undefined" || typeof localStorage === "undefined") {
-    return { appearance: "dark", darkPalette: "pq" };
+    return { appearance: "dark", darkPalette: "aurora" };
   }
   try {
     const app = localStorage.getItem(APPEARANCE_KEY);
     const palRaw = localStorage.getItem(DARK_PALETTE_KEY);
-    const darkPalette: DarkPaletteId = palRaw === "midnight" ? "midnight" : "pq";
+    const darkPalette: DarkPaletteId =
+      palRaw === "midnight" ? "midnight" : palRaw === "aurora" ? "aurora" : palRaw === "pq" ? "pq" : "aurora";
 
     if (app === "system" || app === "light" || app === "dark") {
       return { appearance: app, darkPalette };
@@ -57,11 +62,12 @@ function readInitialPrefs(): { appearance: AppearanceMode; darkPalette: DarkPale
     const legacy = localStorage.getItem(THEME_STORAGE_KEY);
     if (legacy === "light") return { appearance: "light", darkPalette: "pq" };
     if (legacy === "midnight") return { appearance: "dark", darkPalette: "midnight" };
+    if (legacy === "aurora") return { appearance: "dark", darkPalette: "aurora" };
     if (legacy === "dark") return { appearance: "dark", darkPalette: "pq" };
   } catch {
     /* ignore */
   }
-  return { appearance: "dark", darkPalette: "pq" };
+  return { appearance: "dark", darkPalette: "aurora" };
 }
 
 export function useTheme() {

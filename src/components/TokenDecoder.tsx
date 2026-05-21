@@ -40,7 +40,7 @@ export default function TokenDecoder({ token }: Props) {
   const payload = result.kind === "ok" ? result.data.payload : null;
 
   return (
-    <div className="decode-output decode-panel-dark" aria-live="polite">
+    <div className="decode-output" aria-live="polite">
       {result.kind === "ok" && (
         <p className="decode-valid-banner">✓ Valid token — header and payload decoded</p>
       )}

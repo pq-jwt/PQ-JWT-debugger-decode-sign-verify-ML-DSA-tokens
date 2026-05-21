@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="aurora">
   <head>
     <script>
       (function () {
@@ -12,20 +12,32 @@
         }
         function resolve(app, pal) {
           if (app === "light") return "light";
-          if (app === "dark") return pal === "midnight" ? "midnight" : "dark";
-          if (app === "system") return prefDark() ? (pal === "midnight" ? "midnight" : "dark") : "light";
-          return "dark";
+          if (app === "dark") {
+            if (pal === "midnight") return "midnight";
+            if (pal === "aurora") return "aurora";
+            return "dark";
+          }
+          if (app === "system") {
+            if (!prefDark()) return "light";
+            if (pal === "midnight") return "midnight";
+            if (pal === "aurora") return "aurora";
+            return "dark";
+          }
+          return "aurora";
         }
         try {
           var app = localStorage.getItem("pq-jwt-debugger-appearance");
           var pal = localStorage.getItem("pq-jwt-debugger-dark-palette");
-          if (pal !== "midnight") pal = "pq";
+          if (pal !== "midnight" && pal !== "aurora" && pal !== "pq") pal = "aurora";
           if (app !== "system" && app !== "light" && app !== "dark") {
             var leg = localStorage.getItem("pq-jwt-debugger-theme");
             if (leg === "light") app = "light";
             else if (leg === "midnight") {
               app = "dark";
               pal = "midnight";
+            } else if (leg === "aurora") {
+              app = "dark";
+              pal = "aurora";
             } else if (leg === "dark") {
               app = "dark";
               pal = "pq";
@@ -34,7 +46,7 @@
           if (app !== "system" && app !== "light" && app !== "dark") app = "dark";
           document.documentElement.setAttribute("data-theme", resolve(app, pal));
         } catch (e) {
-          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.setAttribute("data-theme", "aurora");
         }
       })();
     </script>

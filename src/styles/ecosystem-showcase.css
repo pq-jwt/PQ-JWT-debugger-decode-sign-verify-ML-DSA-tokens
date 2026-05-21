@@ -1,47 +1,83 @@
-/* Marketing / education blocks — always dark grid aesthetic (all page themes) */
+/* Ecosystem sections — theme-aware, interactive cards */
 .eco-showcase {
-  --eco-bg: #080a0e;
-  --eco-surface: #0f1218;
-  --eco-border: #1e2636;
-  --eco-text: #f0f4f8;
-  --eco-muted: #8b95a8;
-  --eco-teal: #3dffa8;
-  --eco-teal-dim: rgba(61, 255, 168, 0.15);
-  --eco-red: #ff4d6d;
-  --eco-red-dim: rgba(255, 77, 109, 0.12);
   --eco-mono: "JetBrains Mono", ui-monospace, monospace;
   --eco-sans: "Outfit", system-ui, sans-serif;
+  --eco-text: var(--text);
+  --eco-muted: var(--muted);
+  --eco-accent: var(--accent);
+  --eco-accent-2: var(--accent-2, var(--accent-dim));
+  --eco-surface: var(--surface);
+  --eco-surface-2: var(--surface-2);
+  --eco-border: var(--border);
+  --eco-red: #fb7185;
+  --eco-red-dim: rgba(251, 113, 133, 0.12);
+  --eco-safe: var(--accent);
+  --eco-safe-dim: color-mix(in srgb, var(--accent) 14%, transparent);
 
   margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .eco-block {
   position: relative;
   padding: 2rem 1.5rem 2.25rem;
-  border-radius: 14px;
-  background-color: var(--eco-bg);
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
+  border-radius: 16px;
+  background: var(--eco-surface);
   border: 1px solid var(--eco-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.eco-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--eco-accent), var(--eco-accent-2, var(--eco-accent)));
+  opacity: 0.85;
+}
+
+[data-theme="aurora"] .eco-block {
+  backdrop-filter: blur(var(--glass-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+  background: rgba(16, 20, 32, 0.55);
+  border-color: rgba(148, 163, 220, 0.2);
+  box-shadow: var(--panel-shadow, 0 8px 32px rgba(0, 0, 0, 0.35));
+}
+
+[data-theme="aurora"] .eco-block:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: var(--panel-shadow), 0 0 40px rgba(34, 211, 238, 0.08);
+}
+
+[data-theme="dark"] .eco-block,
+[data-theme="midnight"] .eco-block {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 .eco-kicker {
   font-family: var(--eco-mono);
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   margin: 0 0 0.75rem;
   text-transform: uppercase;
 }
 
 .eco-kicker-teal {
-  color: var(--eco-teal);
+  color: var(--eco-accent);
 }
 
 .eco-kicker-red {
@@ -50,18 +86,25 @@
 
 .eco-title {
   font-family: var(--eco-sans);
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
   color: var(--eco-text);
   margin: 0 0 0.85rem;
-  max-width: 28ch;
+  max-width: 32ch;
+}
+
+[data-theme="aurora"] .eco-title {
+  background: linear-gradient(135deg, #f1f5fc 30%, #67e8f9 70%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .eco-lead {
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--eco-muted);
   margin: 0 0 1.5rem;
   max-width: 52rem;
@@ -71,9 +114,10 @@
 .eco-footnote a,
 .eco-pkg-name a,
 .eco-noble-lead a {
-  color: var(--eco-teal);
+  color: var(--eco-accent);
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.15s;
 }
 
 .eco-lead a:hover,
@@ -81,15 +125,26 @@
 .eco-pkg-name a:hover,
 .eco-noble-lead a:hover {
   text-decoration: underline;
+  color: var(--eco-text);
 }
 
-/* Noble stack */
 .eco-noble-row {
   margin-bottom: 1.75rem;
-  padding: 1.25rem 1.35rem;
-  border-radius: 12px;
-  background: var(--eco-surface);
+  padding: 1.35rem 1.5rem;
+  border-radius: 14px;
+  background: var(--eco-surface-2);
   border: 1px solid var(--eco-border);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+[data-theme="aurora"] .eco-noble-row {
+  background: rgba(8, 10, 18, 0.5);
+  border-color: rgba(192, 132, 252, 0.2);
+}
+
+[data-theme="aurora"] .eco-noble-row:hover {
+  border-color: rgba(192, 132, 252, 0.4);
+  box-shadow: 0 0 24px rgba(192, 132, 252, 0.08);
 }
 
 .eco-noble-heading {
@@ -113,37 +168,52 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .eco-noble-pills li {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 0.5rem 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--eco-border) 60%, transparent);
+}
+
+.eco-noble-pills li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .eco-pill {
   display: inline-block;
   font-family: var(--eco-mono);
   font-size: 0.78rem;
-  font-weight: 500;
-  padding: 0.3rem 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
   border-radius: 999px;
   text-decoration: none;
-  border: 1px solid var(--eco-border);
-  transition: border-color 0.15s, background 0.15s;
+  border: 1px solid color-mix(in srgb, var(--eco-accent) 40%, var(--eco-border));
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .eco-pill-noble {
-  color: var(--eco-teal);
-  background: var(--eco-teal-dim);
-  border-color: rgba(61, 255, 168, 0.35);
+  color: var(--eco-accent);
+  background: var(--eco-safe-dim);
 }
 
 .eco-pill-noble:hover {
-  border-color: var(--eco-teal);
-  background: rgba(61, 255, 168, 0.22);
+  transform: translateY(-1px);
+  border-color: var(--eco-accent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--eco-accent) 25%, transparent);
+}
+
+[data-theme="aurora"] .eco-pill-noble:hover {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
 }
 
 .eco-pill-desc {
@@ -151,7 +221,6 @@
   color: var(--eco-muted);
 }
 
-/* npm package cards */
 .eco-pkg-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -159,15 +228,29 @@
 }
 
 .eco-pkg-card {
-  padding: 1.15rem 1.25rem;
-  border-radius: 12px;
-  background: var(--eco-surface);
+  padding: 1.2rem 1.3rem;
+  border-radius: 14px;
+  background: var(--eco-surface-2);
   border: 1px solid var(--eco-border);
-  transition: border-color 0.15s;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s,
+    box-shadow 0.25s;
+  cursor: default;
 }
 
 .eco-pkg-card:hover {
-  border-color: rgba(61, 255, 168, 0.35);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--eco-accent) 45%, var(--eco-border));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="aurora"] .eco-pkg-card {
+  background: rgba(10, 12, 22, 0.55);
+}
+
+[data-theme="aurora"] .eco-pkg-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 24px rgba(34, 211, 238, 0.1);
 }
 
 .eco-pkg-role {
@@ -175,9 +258,9 @@
   font-family: var(--eco-mono);
   font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--eco-teal);
-  margin-bottom: 0.4rem;
+  letter-spacing: 0.06em;
+  color: var(--eco-accent);
+  margin-bottom: 0.45rem;
 }
 
 .eco-pkg-name {
@@ -189,10 +272,11 @@
 .eco-pkg-name a {
   color: var(--eco-text);
   text-decoration: none;
+  transition: color 0.15s;
 }
 
 .eco-pkg-name a:hover {
-  color: var(--eco-teal);
+  color: var(--eco-accent);
 }
 
 .eco-pkg-desc {
@@ -213,7 +297,6 @@
   font-weight: 600;
 }
 
-/* Problem / resistant 2×2 */
 .eco-algo-grid {
   display: grid;
   gap: 1rem;
@@ -231,21 +314,38 @@
 
 .eco-algo-card {
   padding: 1.35rem 1.4rem 1.5rem;
-  border-radius: 12px;
-  background: var(--eco-surface);
+  border-radius: 14px;
+  background: var(--eco-surface-2);
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.eco-algo-card:hover {
+  transform: translateY(-2px);
 }
 
 .eco-algo-card-broken {
-  border: 1px solid rgba(255, 77, 109, 0.45);
-  box-shadow: inset 0 0 0 1px rgba(255, 77, 109, 0.08);
+  border: 1px solid color-mix(in srgb, var(--eco-red) 50%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--eco-red) 15%, transparent);
+}
+
+.eco-algo-card-broken:hover {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--eco-red) 15%, transparent),
+    0 8px 24px rgba(251, 113, 133, 0.12);
 }
 
 .eco-algo-card-safe {
-  border: 1px solid rgba(61, 255, 168, 0.4);
-  box-shadow: inset 0 0 0 1px rgba(61, 255, 168, 0.06);
+  border: 1px solid color-mix(in srgb, var(--eco-safe) 45%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--eco-safe) 12%, transparent);
+}
+
+.eco-algo-card-safe:hover {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--eco-safe) 12%, transparent),
+    0 8px 24px color-mix(in srgb, var(--eco-safe) 15%, transparent);
 }
 
 .eco-algo-status {
@@ -261,12 +361,12 @@
 }
 
 .eco-algo-status-safe {
-  color: var(--eco-teal);
+  color: var(--eco-safe);
 }
 
 .eco-algo-name {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--eco-text);
   letter-spacing: -0.02em;
@@ -286,33 +386,53 @@
   font-size: 0.68rem;
   font-weight: 500;
   padding: 0.35rem 0.65rem;
-  border-radius: 6px;
+  border-radius: 8px;
   letter-spacing: 0.02em;
 }
 
 .eco-algo-tag-broken {
   color: var(--eco-red);
   background: var(--eco-red-dim);
-  border: 1px solid rgba(255, 77, 109, 0.35);
+  border: 1px solid color-mix(in srgb, var(--eco-red) 35%, transparent);
 }
 
 .eco-algo-tag-safe {
-  color: var(--eco-teal);
-  background: var(--eco-teal-dim);
-  border: 1px solid rgba(61, 255, 168, 0.3);
+  color: var(--eco-safe);
+  background: var(--eco-safe-dim);
+  border: 1px solid color-mix(in srgb, var(--eco-safe) 35%, transparent);
 }
 
-/* NIST algorithm cards */
 .eco-nist-card {
   padding: 1.35rem 1.4rem;
-  border-radius: 12px;
-  background: var(--eco-surface);
+  border-radius: 14px;
+  background: var(--eco-surface-2);
   border: 1px solid var(--eco-border);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+
+.eco-nist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="aurora"] .eco-nist-card {
+  background: rgba(10, 12, 22, 0.5);
+}
+
+[data-theme="aurora"] .eco-nist-card:hover {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(34, 211, 238, 0.08);
 }
 
 .eco-nist-card-rec {
-  border-color: rgba(61, 255, 168, 0.5);
-  box-shadow: 0 0 0 1px rgba(61, 255, 168, 0.12);
+  border-color: color-mix(in srgb, var(--eco-accent) 55%, var(--eco-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--eco-accent) 20%, transparent);
+}
+
+[data-theme="aurora"] .eco-nist-card-rec {
+  background: linear-gradient(145deg, rgba(34, 211, 238, 0.06), rgba(192, 132, 252, 0.06));
 }
 
 .eco-nist-head {
@@ -327,7 +447,7 @@
   margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--eco-teal);
+  color: var(--eco-accent);
   letter-spacing: -0.02em;
 }
 
@@ -337,11 +457,28 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  color: var(--eco-teal);
-  border: 1px solid rgba(61, 255, 168, 0.45);
-  background: var(--eco-teal-dim);
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
+  color: var(--eco-accent);
+  border: 1px solid color-mix(in srgb, var(--eco-accent) 45%, transparent);
+  background: var(--eco-safe-dim);
+  animation: eco-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes eco-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-rec-badge {
+    animation: none;
+  }
 }
 
 .eco-nist-fips {
@@ -362,6 +499,17 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.85rem 1rem;
+}
+
+.eco-stat {
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--eco-border) 25%, transparent);
+  transition: background 0.2s;
+}
+
+.eco-nist-card:hover .eco-stat {
+  background: color-mix(in srgb, var(--eco-accent) 8%, transparent);
 }
 
 .eco-stat-value {
@@ -391,6 +539,80 @@
   max-width: 48rem;
 }
 
+[data-theme="light"] .eco-showcase {
+  --eco-red: #cf222e;
+  --eco-red-dim: rgba(207, 34, 46, 0.08);
+}
+
 [data-theme="light"] .eco-showcase .eco-block {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  border-color: #d0d7de;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .eco-block::before {
+  opacity: 1;
+  background: linear-gradient(90deg, #0969da, #8250df);
+}
+
+[data-theme="light"] .eco-block:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 12px 32px rgba(9, 105, 218, 0.08);
+  border-color: #0969da;
+}
+
+[data-theme="light"] .eco-title {
+  color: #24292f;
+  background: none;
+  -webkit-text-fill-color: unset;
+}
+
+[data-theme="light"] .eco-noble-row,
+[data-theme="light"] .eco-pkg-card,
+[data-theme="light"] .eco-algo-card,
+[data-theme="light"] .eco-nist-card {
+  background: #f6f8fa;
+  border-color: #d0d7de;
+}
+
+[data-theme="light"] .eco-pkg-card:hover,
+[data-theme="light"] .eco-nist-card:hover {
+  border-color: #0969da;
+  box-shadow: 0 8px 20px rgba(9, 105, 218, 0.1);
+}
+
+[data-theme="light"] .eco-algo-card-broken {
+  border-color: rgba(207, 34, 46, 0.35);
+}
+
+[data-theme="light"] .eco-algo-card-broken:hover {
+  box-shadow: 0 8px 20px rgba(207, 34, 46, 0.08);
+}
+
+[data-theme="light"] .eco-algo-card-safe {
+  border-color: rgba(26, 127, 55, 0.35);
+}
+
+[data-theme="light"] .eco-algo-card-safe:hover {
+  box-shadow: 0 8px 20px rgba(26, 127, 55, 0.08);
+}
+
+[data-theme="light"] .eco-nist-card-rec {
+  border-color: #2da44e;
+  background: linear-gradient(145deg, #f6ffed, #ffffff);
+}
+
+[data-theme="light"] .eco-stat {
+  background: #ffffff;
+  border: 1px solid #d0d7de;
+}
+
+[data-theme="light"] .eco-pill-noble {
+  color: #0550ae;
+  background: #ddf4ff;
+  border-color: #54aeff;
 }
