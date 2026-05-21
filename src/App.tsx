@@ -41,9 +41,16 @@ export default function App() {
       <header className="site-header">
         <div className="site-header-row">
           <div className="site-header-inner">
-            <h1>
-              PQ<span>-JWT</span> Debugger
-            </h1>
+            <div className="site-brand">
+              <a href="/" className="site-logo-link" aria-label="PQ-JWT Debugger home">
+                <img src="/logo.svg" alt="" className="site-logo" width={48} height={48} />
+              </a>
+              <div className="site-brand-text">
+                <h1>
+                  PQ<span>-JWT</span> Debugger
+                </h1>
+              </div>
+            </div>
             <p className="tagline">
               Full PQ-JWT ecosystem in the browser — core, hybrid composite JWTs, PQ-JOSE (JWK / JWE), plus
               Express patterns for Node APIs.
