@@ -6,10 +6,20 @@ import {
   NPM_ORG_PQ_JWT,
   PQ_JWT_WEBSITE,
 } from "../lib/ecosystem-links";
+import NistLogo from "./NistLogo";
 
 export default function TrustBar() {
   return (
     <div className="trust-bar" role="complementary" aria-label="Trust and ecosystem">
+      <div className="trust-bar-nist">
+        <NistLogo size="md" href={NIST_FIPS_204} className="trust-nist-logo" />
+        <span className="trust-nist-caption">
+          Algorithms standardized under{" "}
+          <a href={NIST_FIPS_204} target="_blank" rel="noreferrer">
+            NIST FIPS 204
+          </a>
+        </span>
+      </div>
       <div className="trust-bar-primary">
         <span className="trust-chip trust-chip-strong">
           Maintained by{" "}

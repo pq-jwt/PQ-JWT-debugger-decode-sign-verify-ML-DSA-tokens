@@ -9,8 +9,10 @@ import {
   NOBLE_CURVES,
   NOBLE_HASHES,
   NOBLE_POST_QUANTUM,
+  NIST_FIPS_204,
   PQ_JWT_WEBSITE,
 } from "../lib/ecosystem-links";
+import NistLogo from "./NistLogo";
 
 const ECOSYSTEM_PACKAGES = [
   {
@@ -246,7 +248,10 @@ export default function EcosystemShowcase() {
       </section>
 
       {/* 3 — NIST four algorithms */}
-      <section className="eco-block">
+      <section className="eco-block eco-block-nist">
+        <div className="eco-nist-brand">
+          <NistLogo size="xl" href={NIST_FIPS_204} />
+        </div>
         <p className="eco-kicker eco-kicker-teal">// NIST STANDARDIZED · AUGUST 2024</p>
         <h2 className="eco-title">Four algorithms. All NIST approved.</h2>
         <p className="eco-lead">

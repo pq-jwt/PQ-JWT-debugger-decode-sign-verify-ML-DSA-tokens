@@ -76,6 +76,44 @@
   text-transform: uppercase;
 }
 
+.eco-block-nist {
+  --nist-navy: #3a3e51;
+  --nist-silver: #d8dae0;
+}
+
+.eco-nist-brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.eco-nist-brand .nist-logo-wrap {
+  border-radius: 10px;
+  width: min(100%, 28rem);
+}
+
+.eco-nist-brand .nist-logo-img {
+  width: 100%;
+  height: auto;
+  min-height: 80px;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+[data-theme="light"] .eco-block-nist {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #3a3e51 6%, var(--eco-surface)) 0%,
+    var(--eco-surface) 120px
+  );
+}
+
+[data-theme="aurora"] .eco-block-nist .nist-logo-wrap {
+  box-shadow:
+    0 4px 24px rgba(34, 211, 238, 0.15),
+    0 0 0 1px rgba(56, 189, 248, 0.2);
+}
+
 .eco-kicker-teal {
   color: var(--eco-accent);
 }

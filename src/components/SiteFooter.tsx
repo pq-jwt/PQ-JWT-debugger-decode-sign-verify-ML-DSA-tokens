@@ -11,6 +11,7 @@ import {
 } from "../lib/ecosystem-links";
 import ContactEmails from "./ContactEmails";
 import NewsletterSignup from "./NewsletterSignup";
+import NistLogo from "./NistLogo";
 
 export default function SiteFooter() {
   return (
@@ -32,17 +33,27 @@ export default function SiteFooter() {
         </a>
       </nav>
 
-      <nav className="footer-row footer-standards" aria-label="Standards references">
-        <a href={NIST_FIPS_204} target="_blank" rel="noreferrer">
-          NIST FIPS 204
-        </a>
-        <a href={NIST_FIPS_205} target="_blank" rel="noreferrer">
-          NIST FIPS 205
-        </a>
-        <a href={IETF_COSE_DILITHIUM} target="_blank" rel="noreferrer">
-          IETF Draft
-        </a>
-      </nav>
+      <div className="footer-standards-block" aria-label="Standards references">
+        <div className="footer-nist-emblem">
+          <NistLogo size="xl" href={NIST_FIPS_204} />
+        </div>
+        <nav className="footer-standards-strip">
+          <a className="footer-std-cell" href={NIST_FIPS_204} target="_blank" rel="noreferrer">
+            NIST FIPS 204
+          </a>
+          <a className="footer-std-cell" href={NIST_FIPS_205} target="_blank" rel="noreferrer">
+            NIST FIPS 205
+          </a>
+          <a
+            className="footer-std-cell footer-std-cell-third"
+            href={IETF_COSE_DILITHIUM}
+            target="_blank"
+            rel="noreferrer"
+          >
+            IETF Draft
+          </a>
+        </nav>
+      </div>
 
       <p className="footer-row footer-security">
         <span className="footer-lock" aria-hidden>

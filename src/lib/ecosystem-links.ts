@@ -45,6 +45,7 @@ export const CONTACT_EMAILS = [
 
 export const AUTHOR_GITHUB = "https://github.com/ruhil6789";
 
+export const NIST_WEBSITE = "https://www.nist.gov/";
 export const NIST_FIPS_204 = "https://doi.org/10.6028/NIST.FIPS.204";
 export const NIST_FIPS_205 = "https://doi.org/10.6028/NIST.FIPS.205";
 export const IETF_COSE_DILITHIUM =
